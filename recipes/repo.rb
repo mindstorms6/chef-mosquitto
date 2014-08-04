@@ -28,10 +28,10 @@ when 'debian'
   end
 when "mac_os_x"
   # Supported by brew
-when "redhat", "centos", "scientific", "fedora", "arch", "amazon"
+when "redhat", "centos", "scientific", "fedora", "arch"
   include_recipe 'yum::default'
 
-  if node['platform_version'].to_i == 7
+  if node['platform_version'].to_i == 6
     yum_repository 'mosquitto' do
       description 'Mosquitto Repository'
       baseurl     'http://download.opensuse.org/repositories/home:/oojah:/mqtt/CentOS_CentOS-6/'
@@ -47,6 +47,15 @@ when "redhat", "centos", "scientific", "fedora", "arch", "amazon"
     end
   else
     raise "Not yet supported, but pull requests welcome!"
+  end
+when "amazon"
+  if node['platform_version'] == "2014.03"
+      yum_repository 'mosquitto' do
+        description 'Mosquitto Repository'
+        baseurl     'http://download.opensuse.org/repositories/home:/oojah:/mqtt/CentOS_CentOS-7/'
+        gpgkey      'http://download.opensuse.org/repositories/home:/oojah:/mqtt/CentOS_CentOS-7/repodata/repomd.xml.key'
+        action :create
+      end
   end
 else
   raise "Not yet supported, but pull requests welcome!"
