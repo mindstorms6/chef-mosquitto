@@ -3,8 +3,8 @@ options = %w{allow_anonymous autosave_interval connection_messages retained_pers
 bridge_options = %w{ connection address cleansession try_private username password threshold start_type round_robin keepalive_interval idle_timeout notifications notification_topic bridge_cafile bridge_capathbridge_certfile bridge_identity bridge_insecure bridge_keyfile}
 %>
 
-<% 
-options.select{|x|node['mosquitto'].has_key(x)}.each do |option|
+<%
+options.select{|x|node['mosquitto'].has_key?(x)}.each do |option|
   puts "#{option} #{node['mosquitto'][option]}"
 end
 %>
@@ -22,9 +22,9 @@ log_type debug
 listener <%= [listener[:port], listener[:addr]].compact.join(" ") %>
 <% end %>
 
-<% 
+<%
 node['mosquitto']['bridges'].each do |bridge|
-  bridge_options.select{|x|bridge.has_key(x)}.each do |key| 
+  bridge_options.select{|x|bridge.has_key?(x)}.each do |key|
     puts "#{key} #{bridge[key]}"
   end
 
