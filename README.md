@@ -10,6 +10,10 @@ Tested on:
 
 ... but Centos 5, Mac OSX, Debian, various flavours of Ubuntu should work.
 
+ * Added support for AMNZ Linux
+    run mosquitto::reop
+    run mosquitto::server
+
 
 ### Recipes
 
