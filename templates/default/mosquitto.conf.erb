@@ -18,18 +18,20 @@ log_type information
 log_type all
 log_type debug
 
-<% node['mosquitto']['listeners'].each do |listener| %>
+<% node.select{|x|node['mosquitto']['listeners']node['mosquitto']['listeners'].each do |listener| %>
 listener <%= [listener[:port], listener[:addr]].compact.join(" ") %>
 <% end %>
 
 <%
-node['mosquitto']['bridges'].each do |bridge|
-  bridge_options.select{|x|bridge.has_key?(x)}.each do |key|
-    puts "#{key} #{bridge[key]}"
-  end
+if @node['mosquitto']['bridges']
+  node['mosquitto']['bridges'].each do |bridge|
+    bridge_options.select{|x|bridge.has_key?(x)}.each do |key|
+      puts "#{key} #{bridge[key]}"
+    end
 
-  bridge['topics'].each do |topic|
-    puts "topic #{topic}"
+    bridge['topics'].each do |topic|
+      puts "topic #{topic}"
+    end
   end
 end
 %>
